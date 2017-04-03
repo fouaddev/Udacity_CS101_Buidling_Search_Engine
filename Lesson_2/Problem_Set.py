@@ -1,3 +1,6 @@
+
+
+
 # Define a procedure, find_last, that takes as input
 # two strings, a search string and a target string,
 # and returns the last position in the search string
@@ -14,7 +17,7 @@ def find_last(s,t):
         last_pos = s.find(t, i)
         if last_pos == -1:
             return i - 1
-        i = i + 1
+        i += i
     
 print find_last('aaaa', 'a')
 #>>> 3
