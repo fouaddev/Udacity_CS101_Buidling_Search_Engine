@@ -17,7 +17,7 @@ def find_last(s,t):
         last_pos = s.find(t, i)
         if last_pos == -1:
             return i - 1
-        i += i
+        i += 1
     
 print find_last('aaaa', 'a')
 #>>> 3
