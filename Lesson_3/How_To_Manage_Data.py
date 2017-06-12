@@ -48,7 +48,7 @@ def crawl_web(seed):
     while tocrawl:
         page = tocrawl.pop()
         if page not in crawled:
-            tocrawl.append(get_all_links(get_page(page)))
+            union(tocrawl,get_all_links(get_page(page)))
             crawled.append(page)
     return crawled
 seed = 'http://xkcd.com/353'
