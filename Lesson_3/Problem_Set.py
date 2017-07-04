@@ -16,7 +16,7 @@
 # initial value assigned to the list p = [1,0,1] OR p = [0,1,1]
 
 
-----------------------------------------------------------
+############################################################
 
 
 # PRODUCT LIST
@@ -44,7 +44,7 @@ print product_list([])
 #>>> 1
 
 
-----------------------------------------------------------
+############################################################
 
 
 # GREATEST
@@ -71,7 +71,7 @@ print greatest([])
 #>>> 0
 
 
-----------------------------------------------------------
+############################################################
 
 
 # LISTS OF LISTS
@@ -122,7 +122,7 @@ print total_enrollment(usa_univs)
 #>>> (77285,3058581079)
     
 
-----------------------------------------------------------
+############################################################
 
 
 # MAX PAGES
@@ -223,7 +223,7 @@ print crawl_web("http://www.udacity.com/cs101x/index.html",500)
 #>>> 'http://www.udacity.com/cs101x/kicking.html']
 
 
-----------------------------------------------------------
+############################################################
 
 
 # MAX DEPTH
@@ -376,7 +376,7 @@ print crawl_web("A1",3)
 # (May be in any order)
 
 
-----------------------------------------------------------
+############################################################
 
 
 # ALTERNATIVE MAX DEPTH SOLUTION
@@ -502,8 +502,112 @@ print crawl_web("A1",3)
 # (May be in any order)
 
 
-----------------------------------------------------------
+############################################################
 
 
 # SUDOKU
+
+# THREE GOLD STARS for this exercise!
+
+# Sudoku [http://en.wikipedia.org/wiki/Sudoku]
+# is a logic puzzle where a game
+# is defined by a partially filled
+# 9 x 9 square of digits where each square
+# contains one of the digits 1,2,3,4,5,6,7,8,9.
+# For this question we will generalize
+# and simplify the game.
+
+# Define a procedure, check_sudoku,
+# that takes as input a square list
+# of lists representing an n x n
+# sudoku puzzle solution and returns the boolean
+# True if the input is a valid
+# sudoku square and returns the boolean False
+# otherwise.
+
+# A valid sudoku square satisfies these
+# two properties:
+
+#   1. Each column of the square contains
+#       each of the whole numbers from 1 to n exactly once.
+
+#   2. Each row of the square contains each
+#       of the whole numbers from 1 to n exactly once.
+
+# You may assume the the input is square and contains at
+# least one row and column.
+
+correct = [[1,2,3],
+           [2,3,1],
+           [3,1,2]]
+
+incorrect = [[1,2,3,4],
+             [2,3,1,3],
+             [3,1,2,3],
+             [4,4,4,4]]
+
+incorrect2 = [[1,2,3,4],
+             [2,3,1,4],
+             [4,1,2,3],
+             [3,4,1,2]]
+
+incorrect3 = [[1,2,3,4,5],
+              [2,3,1,5,6],
+              [4,5,2,1,3],
+              [3,4,5,2,1],
+              [5,6,4,3,2]]
+
+incorrect4 = [['a','b','c'],
+              ['b','c','a'],
+              ['c','a','b']]
+
+incorrect5 = [ [1, 1.5],
+               [1.5, 1]]
+
+def check_rows(sudoku):
+    for sub_list in sudoku:
+        i = 1
+        while i <= len(sub_list):
+            if sub_list.count(i) != 1:
+                return False
+            i += 1
+    return True
+
+def transpose(sudoku):
+    trans_list = []
+    i = 0
+    while i < len(sudoku):
+        e_trans_list = []
+        for e in sudoku:
+            e_trans_list.append(e[i])
+        trans_list.append(e_trans_list)
+        i += 1
+    return trans_list
+
+def check_sudoku(sudoku):
+    if check_rows(sudoku) and check_rows(transpose(sudoku)):
+        return True
+    return False
+
+print check_sudoku(incorrect)
+#>>> False
+
+print check_sudoku(correct)
+#>>> True
+
+print check_sudoku(incorrect2)
+#>>> False
+
+print check_sudoku(incorrect3)
+#>>> False
+
+print check_sudoku(incorrect4)
+#>>> False
+
+print check_sudoku(incorrect5)
+#>>> False
+
+
+############################################################
+
 
