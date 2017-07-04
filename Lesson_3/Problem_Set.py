@@ -606,8 +606,3 @@ print check_sudoku(incorrect4)
 
 print check_sudoku(incorrect5)
 #>>> False
-
-
-############################################################
-
-
