@@ -72,3 +72,18 @@ print symmetric([[1, 2, 3, 4],
 print symmetric([[1,2,3],
                   [2,3,1]])
 #>>> False
+
+
+###############################################################################
+
+
+# SYMMETRIC SQUARE WITH 1 LINE OF CODE SOLUTION: using map & zip built-in functions
+
+def symmetric(square):
+    return square == map(list, zip(*square))
+
+
+###############################################################################
+
+# MEAN OF A LIST
+
