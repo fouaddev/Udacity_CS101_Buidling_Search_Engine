@@ -37,3 +37,19 @@ print antisymmetric([[1, 2, 5],
                      [0, 1, -9],
                      [0, 0, 1]])
 #>>> False
+
+
+###################################################################
+
+
+# ANTISYMMETRIC SQUARE 1 LINE OF CODE SOLUTION:
+
+def antisymmetric(matrix):
+    return all(len(row) == len(matrix) for row in matrix) and all(matrix[e][r] == -matrix[r][e] for e in range(len(matrix)) for r in range(len(matrix)))
+
+
+###################################################################
+
+
+# RECOGNIZE IDENTITY MATRIX
+
