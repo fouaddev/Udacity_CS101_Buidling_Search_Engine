@@ -86,6 +86,15 @@ def symmetric(square):
 ###############################################################################
 
 
+# ANOTHER SYMMETRIC SQUARE WITH 1 LINE OF CODE SOLUTION: with just len & range built-in functions
+
+def symmetric(matrix):
+    return all(len(row) == len(matrix) for row in matrix) and all(matrix[e][r] == matrix[r][e] for e in range(len(matrix)) for r in range(len(matrix)))
+
+
+###############################################################################
+
+
 # MEAN OF A LIST
 
 # The mean of a set of numbers is the sum of the numbers divided by the
