@@ -149,7 +149,6 @@ def is_identity_matrix(matrix):
         if len(matrix) != len(e):
             return False
     for i in range(len(matrix)):
-        len(matrix) == 0
         for j in range(len(matrix)):
             if i == j:
                 if matrix[i][j] != 1:
