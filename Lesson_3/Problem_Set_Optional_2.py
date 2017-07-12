@@ -145,8 +145,9 @@ print is_identity_matrix(matrix7)
 def is_identity_matrix(matrix):
     if len(matrix) == 0:
         return False
-    if len(matrix) != len(matrix[0]):
-        return False
+    for e in matrix:
+        if len(matrix) != len(e):
+            return False
     for i in range(len(matrix)):
         len(matrix) == 0
         for j in range(len(matrix)):
