@@ -17,7 +17,7 @@
 
 index = []
 
-def add_to_index(index,keyword,url):    # create a procedure that adds new keywords and/or url's to index
+def add_to_index(index,keyword,url):    #create a procedure that adds new keywords and/or url's to index
     for e in index:    #loop over all index lists to see if the input keyword already exist
         if keyword == e[0]:    #test input keyword against first element of each list to see if they match
             e[1].append(url)    #if above argument is true, we append url associated with input keyword to url list
