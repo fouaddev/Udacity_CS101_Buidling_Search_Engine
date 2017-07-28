@@ -17,16 +17,13 @@
 
 index = []
 
-def add_to_index(index,keyword,url):
-    for e in index:
-        if keyword == e[0]:
-            result = e[1].append(url)
-            return
-    index.append([keyword,[url]])
-
-
-
-
+def add_to_index(index,keyword,url):    # create a procedure that adds new keywords and/or url's to index
+    for e in index:    #loop over all index lists to see if the input keyword already exist
+        if keyword == e[0]:    #test input keyword against first element of each list to see if they match
+            e[1].append(url)    #if above argument is true, we append url associated with input keyword to url list
+            return    #and then we return result, otherwise we account for the case where there is no keyword match. If we don't return, the next line will be executed by adding a new list with that already existed keyword with its url's, even if we found a match keyword
+    index.append([keyword, [url]])    #if keyword doesn't match any keyword in all index lists, then we append a new list that consist of this new keyword and its url
+    
 add_to_index(index,'udacity','http://udemy.com')
 add_to_index(index,'computing','http://acm.org')
 add_to_index(index,'udacity','http://npr.org')
