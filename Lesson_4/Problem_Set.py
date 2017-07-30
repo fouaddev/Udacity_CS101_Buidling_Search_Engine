@@ -39,7 +39,7 @@
 
 
 def record_user_click(index,keyword,url):
-    urls_list_result = look_up(index,keyword)
+    urls_list_result = lookup(index,keyword)
     if ulrs:
         for entry in urls_list_result:
             if url == entry[0]:
