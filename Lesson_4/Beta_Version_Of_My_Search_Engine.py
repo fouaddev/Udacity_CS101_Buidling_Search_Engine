@@ -30,6 +30,7 @@ def get_all_links(page):
             break
     return links
 
+
 def crawl_web(seed, max_pages):
     tocrawl = [seed]
     crawled = []
@@ -61,10 +62,13 @@ def add_to_index(index, keyword, url):
     # not found, add new keyword to index
     index.append([keyword,[[url,0]]])
 
+
 def add_page_to_index(index, url, content):
     words = content.split()
     for word in words:
         add_to_index(index, word, url)
+    #print words
+    #print content
 
 def lookup(index, keyword):    # The Customer types in the keyword they want to lookup (search for)
     for entry in index:
@@ -72,7 +76,16 @@ def lookup(index, keyword):    # The Customer types in the keyword they want to 
             return entry[1]    # The lookup function outputs the links (if any) associated with the entered keyword.
     return None
 
-seed, max_pages = 'https://xkcd.com/about/', 100    # We will build a small index (corpus), just for testing by crawling only 100 pages starting from this seed page
-print crawl_web(seed, max_pages)
+
+
+
+
+seed, max_pages = 'http://www.imdb.com/', 50
 index = crawl_web(seed, max_pages)
-print lookup(index, 'the')    # We will be looking up the keyword 'the' in our index we've built that represents our corpus (search engine data built/gathered)
+#print crawl_web(seed, max_pages)
+
+print " "
+
+url = 'http://pro.imdb.com/signup/v4/help'
+#record_user_click(index,'the',url)
+print lookup(index, 'the')
