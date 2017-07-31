@@ -72,7 +72,7 @@ def lookup(index, keyword):    # The Customer types in the keyword they want to 
             return entry[1]    # The lookup function outputs the links (if any) associated with the entered keyword.
     return None
 
-seed, max_pages = 'https://xkcd.com/about/', 100
+seed, max_pages = 'https://xkcd.com/about/', 100    # We will build a small index (just for testing) by crawling only 100 pages starting from this seed page
 print crawl_web(seed, max_pages)
 index = crawl_web(seed, max_pages)
-print lookup(index, 'the')
+print lookup(index, 'the')    # We will be looking up the keyword 'the' in our index we've built
