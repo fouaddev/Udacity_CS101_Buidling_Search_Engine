@@ -80,7 +80,7 @@ def lookup(index, keyword):    # The Customer types in the keyword they want to 
 
 
 
-seed, max_pages = 'http://www.imdb.com/', 20
+seed, max_pages = 'http://www.imdb.com/', 20    # Another good seed page to try is https://xkcd.com/about/
 index = crawl_web(seed, max_pages)
 #print crawl_web(seed, max_pages)
 
