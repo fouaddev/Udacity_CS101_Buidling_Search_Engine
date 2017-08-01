@@ -11,7 +11,7 @@ def union(a, b):
             a.append(e)
 
 def get_next_target(page):
-    start_link = page.find('<a href=')
+    start_link = page.find('href')
     if start_link == -1:
         return None, 0
     start_quote = page.find('"', start_link)
@@ -44,6 +44,8 @@ def crawl_web(seed, max_pages):
             crawled.append(page)
     return index
 
+
+
 def record_user_click(index,keyword,url):
     urls_list_result = lookup(index,keyword)
     if urls_list_result:
@@ -63,8 +65,22 @@ def add_to_index(index, keyword, url):
     index.append([keyword,[[url,0]]])
 
 
+split_chars = "`~!@#$%^&*()_+=-<>?/';:][}{\ |  ."
+
+def split_string(content,split_chars):
+    split = []
+    start = 0
+    while start < len(content):
+        current = start
+        while current < len(content) and split_chars.find(content[current]) == -1:
+            current += 1
+        if start != current:
+            split.append(content[start:current])
+        start = current + 1
+    return split
+
 def add_page_to_index(index, url, content):
-    words = content.split()
+    words = split_string(content,split_chars)
     for word in words:
         add_to_index(index, word, url)
     #print words
@@ -80,13 +96,15 @@ def lookup(index, keyword):    # The Customer types in the keyword they want to 
 
 
 
-seed, max_pages = 'http://www.imdb.com/', 30    # You can also try this seed page https://xkcd.com/about/
+seed, max_pages = 'http://www.imdb.com/', 50
 index = crawl_web(seed, max_pages)
 #print crawl_web(seed, max_pages)
+
+
 
 print " "
 
 url = 'http://pro.imdb.com/signup/v4/help'
-record_user_click(index,'What',url)
-record_user_click(index,'What',url)
-print lookup(index,'What')
+#record_user_click(index,'The',url)
+print lookup(index,'the')
+
