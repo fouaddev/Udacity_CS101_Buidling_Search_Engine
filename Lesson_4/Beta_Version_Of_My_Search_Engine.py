@@ -80,12 +80,13 @@ def lookup(index, keyword):    # The Customer types in the keyword they want to 
 
 
 
-seed, max_pages = 'http://www.imdb.com/', 20    # Another good seed page to try is https://xkcd.com/about/
+seed, max_pages = 'http://www.imdb.com/', 30
 index = crawl_web(seed, max_pages)
 #print crawl_web(seed, max_pages)
 
 print " "
 
 url = 'http://pro.imdb.com/signup/v4/help'
-#record_user_click(index,'the',url)
-print lookup(index, 'the')
+record_user_click(index,'What',url)
+record_user_click(index,'What',url)
+print lookup(index,'What')
