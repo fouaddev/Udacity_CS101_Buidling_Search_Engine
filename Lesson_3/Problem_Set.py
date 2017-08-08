@@ -606,3 +606,12 @@ print check_sudoku(incorrect4)
 
 print check_sudoku(incorrect5)
 #>>> False
+
+
+############################################################
+
+# PYRAMID EXERCISE
+n = 10
+for i in range(n):
+	print (' ' * (n-i)) + ('*' * (i*2 + 1))
+    
