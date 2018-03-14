@@ -1,4 +1,4 @@
-Building the Search Engine:
+Building a Search Engine (composed of a Crawler, an Index Algorithm, and a Page Rank Algorithm):
 
 This is a search engine built throughout the Udacity course of Introduction to Computer Science.
 We will split the whole program into small functions while introducing new concepts supported with exercises along the way.
