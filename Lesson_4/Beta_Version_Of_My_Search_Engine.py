@@ -1,17 +1,52 @@
-def get_page(page):
+def compute_ranks(graph):
+    d = 0.8  # damping factor
+    numloops = 10
+
+    ranks = {}
+    npages = len(graph)
+    for page in graph:
+        ranks[page] = 1.0 / npages
+
+    for i in range(0, numloops):
+        newranks = {}
+        for page in graph:
+            newrank = (1 - d) / npages
+
+            for node in graph:
+                if page in graph[node]:
+                    newrank = newrank + d * (ranks[node] / len(graph[node]))
+
+            newranks[page] = newrank
+        ranks = newranks
+    return ranks
+
+def crawl_web(seed):  # returns index, graph of inlinks
+    tocrawl = [seed]
+    crawled = []
+    graph = {}  # <url>, [list of pages it links to]
+    index = {}
+    while tocrawl:
+        page = tocrawl.pop()
+        if page not in crawled:
+            content = get_page(page)
+            add_page_to_index(index, page, content)
+            outlinks = get_all_links(content)
+
+            graph[page] = outlinks
+
+            union(tocrawl, outlinks)
+            crawled.append(page)
+    return index, graph
+
+def get_page(url):
     try:
         import urllib
-        return urllib.urlopen(page).read()
+        return urllib.urlopen(url).read()
     except:
         return ""
 
-def union(a, b):
-    for e in b:
-        if e not in a:
-            a.append(e)
-
 def get_next_target(page):
-    start_link = page.find('href')
+    start_link = page.find('<a href=')
     if start_link == -1:
         return None, 0
     start_quote = page.find('"', start_link)
@@ -30,21 +65,16 @@ def get_all_links(page):
             break
     return links
 
+def union(a, b):
+    for e in b:
+        if e not in a:
+            a.append(e)
 
-def crawl_web(seed, max_pages):
-    tocrawl = [seed]
-    crawled = []
-    index = []
-    while tocrawl:
-        page = tocrawl.pop()
-        if page not in crawled and max_pages > len(crawled):
-            content = get_page(page)
-            add_page_to_index(index, page, content)
-            union(tocrawl, get_all_links(content))
-            crawled.append(page)
-    return index
-
-
+def add_page_to_index(index, url, content):
+    words = content.split()
+    for word in words:
+        add_to_index(index, word, url)
+    return words
 
 def record_user_click(index,keyword,url):
     urls_list_result = lookup(index,keyword)
@@ -54,57 +84,42 @@ def record_user_click(index,keyword,url):
                 entry[1] += 1
 
 def add_to_index(index, keyword, url):
-    for entry in index:    # index = [[keyword, [[url, count], [url,count], [url, count],...]], ...]
-        if entry[0] == keyword:
-            for links in entry[1]:
-                if links[0] == url:
-                    return
-            entry[1].append([url, 0])
-            return
-    # not found, add new keyword to index
-    index.append([keyword,[[url,0]]])
+    if keyword in index:
+        index[keyword].append(url)
+    else:
+        index[keyword] = [url]
 
+def lookup(index, keyword):
+    if keyword in index:
+        return index[keyword]
+    else:
+        return None
 
-split_chars = "`~!@#$%^&*()_+=-<>?/';:][}{\ |  ."
+print 'Note: Before you enter your URL address, please make sure to enter a URL that does not lead to unlimited back links'
+print 'which will never finish and return the results.'
+print 'For testing purposes, use this URL address "https://udacity.github.io/cs101x/urank/"'
+print 'It links to limited amount of Web Pages, therefor the scraping process finishes and returns with results.'
+link = str(input('Enter your URL between double quotes here: '))
+seed = link
+index, graph = crawl_web('https://udacity.github.io/cs101x/urank/')
+ranks = compute_ranks(graph)
 
-def split_string(content,split_chars):
-    split = []
-    start = 0
-    while start < len(content):
-        current = start
-        while current < len(content) and split_chars.find(content[current]) == -1:
-            current += 1
-        if start != current:
-            split.append(content[start:current])
-        start = current + 1
-    return split
+print ' '
 
-def add_page_to_index(index, url, content):
-    words = split_string(content,split_chars)
-    for word in words:
-        add_to_index(index, word, url)
-    #print words
-    #print content
+print 'Here is all the data scrapped as an Index list that contains all content words and Web Pages found.'
+print 'Each word is grouped with all links that contain it:'
 
-def lookup(index, keyword):    # The Customer types in the keyword they want to lookup (search for)
-    for entry in index:
-        if entry[0] == keyword:
-            return entry[1]    # The lookup function outputs the links (if any) associated with the entered keyword.
-    return None
+print crawl_web('https://udacity.github.io/cs101x/urank/')
 
+print ' '
 
+print 'Note: Before you enter a keyword, please make sure to enter a simple keyword like "the" or "buy" or "more"...etc,'
+print 'due to limited data scraped.'
+key = str(input('Enter your keyword between quotes here: '))
+print 'Here is a list of all the scraped links that contain the keyword "' + key + '":'
+print lookup(index,key)
 
+print ' '
 
-
-seed, max_pages = 'http://www.imdb.com/', 30
-index = crawl_web(seed, max_pages)
-#print crawl_web(seed, max_pages)
-
-
-
-print " "
-
-#url = 'http://pro.imdb.com/signup/v4/help'
-#record_user_click(index,'the',url)
-print lookup(index,'the')
-
+print 'Here is a list of all links scrapped with their ranking indicator, based on their popularity:'
+print ranks
