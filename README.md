@@ -1,7 +1,7 @@
 Building a Search Engine (composed of a Crawler, an Index Algorithm, and a Page Rank Algorithm):
 
-Note: The search engine is in Beta Version and can be found in "Lesson_4" folder.
-I used Python 2.7 to build it.
+Note: The search engine is in Beta Version and can be found in "Lesson_4" folder. 
+And I used Python 2.7 to build it.
 
 This is a search engine built throughout the Udacity course of Introduction to Computer Science.
 We will split the whole program into small functions while introducing new concepts supported with exercises along the way.
